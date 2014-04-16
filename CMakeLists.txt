@@ -4,7 +4,10 @@ project(tf)
 find_package(catkin REQUIRED)
 
 find_package(Boost REQUIRED thread signals)
-find_package(catkin REQUIRED angles geometry_msgs message_filters message_generation rosconsole roscpp rostest rostime sensor_msgs std_msgs tf2_ros)
+find_package(catkin REQUIRED COMPONENTS
+  angles geometry_msgs message_filters message_generation rosconsole 
+  roscpp rostest rostime sensor_msgs std_msgs tf2_ros
+)
 
 catkin_python_setup()
 
@@ -22,7 +25,8 @@ generate_messages(DEPENDENCIES geometry_msgs sensor_msgs std_msgs)
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS geometry_msgs message_filters message_runtime roscpp sensor_msgs std_msgs tf2_ros rosconsole
+  CATKIN_DEPENDS geometry_msgs message_filters message_runtime 
+                 roscpp sensor_msgs std_msgs tf2_ros rosconsole
 )
 
 add_library(${PROJECT_NAME} src/tf.cpp src/transform_listener.cpp src/cache.cpp src/transform_broadcaster.cpp)
@@ -55,7 +59,7 @@ catkin_add_gtest(tf_quaternion_unittest test/quaternion.cpp)
 target_link_libraries(tf_quaternion_unittest ${PROJECT_NAME})
 
 catkin_add_gtest(test_transform_datatypes test/test_transform_datatypes.cpp)
-target_link_libraries(tf_unittest ${PROJECT_NAME})
+target_link_libraries(test_transform_datatypes ${PROJECT_NAME})
 
 add_executable(transform_listener_unittest test/transform_listener_unittest.cpp)
 target_link_libraries(transform_listener_unittest ${PROJECT_NAME} ${GTEST_LIBRARIES})
